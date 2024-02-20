@@ -26,5 +26,5 @@ void loop()
 
   displayMenuPage2();
 
-  delay(1);
+  delay(1);// delays for 1ms before going to loop start again
   }
