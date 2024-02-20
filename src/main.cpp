@@ -1,9 +1,13 @@
+//lib dependencies//
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <AudioStream.h>
-#include "menu.h"
+//local source dependencies
+#include <menu.h>
+#include <Audio.h>
+
 //#include "menus.cpp"
 
 // put function declarations here:
