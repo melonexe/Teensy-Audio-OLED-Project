@@ -28,7 +28,17 @@ void loop()
   display.clearDisplay(); // clearing display at start of loop//
 
 
+  displayMenuPage1();
+
+  delay(2000);
+
   displayMenuPage2();
+
+  delay(2000);
+
+  displayMenuPage3();
+
+  delay(2000);
 
   delay(1);// delays for 1ms before going to loop start again
   }
