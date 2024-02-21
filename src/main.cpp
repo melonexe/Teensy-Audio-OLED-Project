@@ -52,6 +52,8 @@ void loop()
   display.clearDisplay(); // clearing display at start of loop//
 
   displayMenuPageStart();
+
+  
   
   //displayMenuPage1();
 
@@ -65,5 +67,5 @@ void loop()
 
   
 
-  delay(1);// delays for 1ms before going to loop start again
+  delay(100);// delays for 1ms before going to loop start again
   }

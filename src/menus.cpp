@@ -13,7 +13,7 @@ void displayMenuPageStart() {
   display.clearDisplay(); // clearing display at start of loop//
 
 // bar total width = 50 set bars to half full on start
-  int BarWidth1 = map((analogRead(A1)),0, 1023, 0, 50);  // this mostly works however there is a weird jump behaviour in the middle of the pot range, Maybe to do with map function ? measure voltage and then do serial debugging ?
+  int BarWidth1 = 25;  // removed analog read code as these values will be controlled by rotary encoders when they arrive, pointless de bugging something that is going to removed soon
   int BarWidth2 = 25;
   int BarWidth3 = 25;
   int BarWidth4 = 25;
