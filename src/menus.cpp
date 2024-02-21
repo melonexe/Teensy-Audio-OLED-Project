@@ -5,6 +5,56 @@
 
 extern Adafruit_SSD1306 display;
 
+
+//rotary encoder setup stuff
+
+ #define outputA 5
+ #define outputB 6
+
+ int counter = 0; 
+ int aState;
+ int aLastState;  
+
+void displayControlLoopSetup(){
+
+//Rotary Encoder Setup
+  pinMode (outputA,INPUT);
+  pinMode (outputB,INPUT);
+   
+   
+   // Reads the initial state of the outputA
+   aLastState = digitalRead(outputA);   
+
+
+}
+
+
+void displayControlLoop(){
+
+   aState = digitalRead(outputA); // Reads the "current" state of the outputA on encoder
+   // If the previous and the current state of the outputA are different, that means a Pulse has occured
+   if (aState != aLastState){     
+     // If the outputB state is different to the outputA state, that means the encoder is rotating clockwise
+     if (digitalRead(outputB) != aState) { 
+       counter ++;
+     } else {
+       counter --;
+     }
+     Serial.print("Position: ");
+     Serial.println(counter);
+   } 
+   aLastState = aState; // Updates the previous state of the outputA with the current state
+
+
+// to do: integrate with new UI elements etc and set up counting system with rotary encoder, the plan is to
+// go from top left to bottom right using rotary encoder and as the counter changes it should update the UI 
+//elements to be highlighted when scrolled to 
+
+// will need to add new UI elements in this loop or menu page start loop? not sure which yet
+
+}
+
+
 void displayMenuPageStart() {
     // Implementation for menu page 1
     // ...

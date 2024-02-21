@@ -24,6 +24,7 @@ const int ledPin = 13;    // built-in LED pin
 
 
 void setup() {
+
   // display setup begin
 
   display.begin(SSD1306_SWITCHCAPVCC, 0x3c); // define display i2c address  // even though 0x3d is supposed to be 128 x 64 only 0x3c works, chinese parts i guess
@@ -53,7 +54,8 @@ void loop()
 
   displayMenuPageStart();
 
-  
+
+ 
   
   //displayMenuPage1();
 

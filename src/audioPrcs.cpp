@@ -120,7 +120,7 @@ AudioControlSGTL5000     sgtl5000_1;     //xy=121,500
 
 
 
-void setup() {
+void Audiosetup() {
   // put your setup code here, to run once:
 
   Serial.begin(9600);
