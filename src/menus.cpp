@@ -2,55 +2,83 @@
 #include "menu.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <Encoder.h>
 
 extern Adafruit_SSD1306 display;
 
 
 //rotary encoder setup stuff
 
- #define outputA 5
- #define outputB 6
+const int encoderPinA = 6; // Connect one encoder pin to Teensy pin 5
+const int encoderPinB = 5; // Connect the other encoder pin to Teensy pin 6
 
- int counter = 0; 
- int aState;
- int aLastState;  
+Encoder myEnc(encoderPinA, encoderPinB);
+long oldPosition = 0;
+int counter = 0; // main encoder counter for absolute position
+int barCounter = 0; // limited encoder counter to feed the bar width variable to
+
+
+ 
 
 void displayControlLoopSetup(){
 
-//Rotary Encoder Setup
-  pinMode (outputA,INPUT);
-  pinMode (outputB,INPUT);
-   
-   
-   // Reads the initial state of the outputA
-   aLastState = digitalRead(outputA);   
 
+
+  
+  
+  
+ // at the moment this is an unused function, may delete in the future if proves to not be needed
 
 }
 
 
 void displayControlLoop(){
+ 
 
-   aState = digitalRead(outputA); // Reads the "current" state of the outputA on encoder
-   // If the previous and the current state of the outputA are different, that means a Pulse has occured
-   if (aState != aLastState){     
-     // If the outputB state is different to the outputA state, that means the encoder is rotating clockwise
-     if (digitalRead(outputB) != aState) { 
-       counter ++;
-     } else {
-       counter --;
-     }
-     Serial.print("Position: ");
-     Serial.println(counter);
-   } 
-   aLastState = aState; // Updates the previous state of the outputA with the current state
+  //this is a local implementation for bar values as the counter cannot go above 50, I was trying to create one globabl counter loop for the encoder
+  // but couldnt figure out a way to make it work without a large delay between decreasing the bar width from its max value if the user had taken the encoder to say a value of 80
+  // the counter wouldnt change the bar width until it went below 50, hence the local specific approach below
+
+  // this may prove to be stupid and inefficient, but that is a problem for future me
+
+ long newPosition = myEnc.read();
+
+  if (newPosition > oldPosition) {
+    // Encoder rotated clockwise
+    // Increment the counter
+    counter++;
+    if (counter > 50){
+      counter = 50;
+    }
+    Serial.println("Counter: " + String(counter));
+  } else if (newPosition < oldPosition) {
+    // Encoder rotated counterclockwise
+    // Decrement the counter
+    counter--;
+    Serial.println("Counter: " + String(counter));
+  }
+
+  oldPosition = newPosition;
+
+  barCounter = counter; // maps barCounter to the counter var
+
+  if (barCounter> 50){ // limits the maximum value of barCounter
+    barCounter = 50;
+  }
 
 
-// to do: integrate with new UI elements etc and set up counting system with rotary encoder, the plan is to
+  //this encoder implementation seems to work reasonably well, however it makes me question the quality of the..
+  //encoder detent system, as going from one detent to the next sometimes triggers more than four signal outputs
+  // it may be a problem with the code however I doubt it. this works much better than the previous implementation
+  // TO DO: test with higher quality encoders to see if the problem persists
+
+
 // go from top left to bottom right using rotary encoder and as the counter changes it should update the UI 
 //elements to be highlighted when scrolled to 
 
 // will need to add new UI elements in this loop or menu page start loop? not sure which yet
+
+//^^^^^^^^ new UI highlighting display elements should probably be written into the control loop, as it will be easier to read.
 
 }
 
@@ -63,7 +91,10 @@ void displayMenuPageStart() {
   display.clearDisplay(); // clearing display at start of loop//
 
 // bar total width = 50 set bars to half full on start
-  int BarWidth1 = 25;  // removed analog read code as these values will be controlled by rotary encoders when they arrive, pointless de bugging something that is going to removed soon
+  int BarWidth1 = barCounter;  // setting the barwidth variable to use the encoder counter is its value, might work?
+
+
+
   int BarWidth2 = 25;
   int BarWidth3 = 25;
   int BarWidth4 = 25;
