@@ -1,10 +1,6 @@
 #include "audioPrcs.h"
 
-#include <Audio.h>
-#include <Wire.h>
-#include <SPI.h>
-#include <SD.h>
-#include <SerialFlash.h>
+
 
 #include <Audio.h>
 #include <Wire.h>
@@ -132,4 +128,21 @@ void Audiosetup() {
   //set up amp and mixer values etc etc refer to system diagram
 
   AudioMemory(512);// arbritary value at the moment need to look into this
+}
+
+
+
+
+void AudioLoop(){
+
+
+
+
+
+
+
+
+
+
+  
 }

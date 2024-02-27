@@ -12,34 +12,148 @@ extern Adafruit_SSD1306 display;
 const int encoderPinA = 6; // Connect one encoder pin to Teensy pin 5
 const int encoderPinB = 5; // Connect the other encoder pin to Teensy pin 6
 
+const int button1 = 7; // replace with the actual pin number for button 1
+const int button2 = 8; // replace with the actual pin number for button 2
+const int button3 = 9; // replace with the actual pin number for button 3
+const int button4 = 10; 
+
+// encoder variables
 Encoder myEnc(encoderPinA, encoderPinB);
 long oldPosition = 0;
 int counter = 0; // main encoder counter for absolute position
 int barCounter = 0; // limited encoder counter to feed the bar width variable to
 
+const int numRows = 4;
+const int numCols = 3;
 
- 
+int currentX = 1;  // Current X position
+int currentY = 1;  // Current Y position
 
-void displayControlLoopSetup(){
+// Define UI elements
+String uiElements[numRows][numCols] = {
+    {"Button1", "Button2", "Button3"},
+    {"Button4", "Button5", "Button6"},
+    {"Button7", "Button8", "Button9"},
+    {"Button10", "Button11", "Button12"}
+};
 
+
+void displayControlSetup(){
+
+  pinMode(button1, INPUT_PULLUP);
+  pinMode(button2, INPUT_PULLUP);
+  pinMode(button3, INPUT_PULLUP);
+  pinMode(button4, INPUT_PULLUP);
 
 
   
-  
-  
- // at the moment this is an unused function, may delete in the future if proves to not be needed
 
 }
 
 
+void buttonControl(){
+
+  if (digitalRead(button1) == HIGH){
+
+    currentX--;
+
+    if (currentX < 1){
+
+      currentX = 1;
+    }
+
+  }
+
+  if (digitalRead(button2) == HIGH){
+
+    currentY--;
+
+    if (currentY < 1){
+
+      currentY = 1;
+    }
+
+  }
+
+
+  if (digitalRead(button3) == HIGH){
+
+    currentX++;
+
+    if (currentX > 3){
+
+      currentX = 3;
+    }
+
+  }
+
+  if (digitalRead(button4) == HIGH){
+
+    currentY++;
+
+    if (currentY > 4){
+
+      currentY = 4;
+    }
+
+  }
+
+
+}
+
 void displayControlLoop(){
  
-
   //this is a local implementation for bar values as the counter cannot go above 50, I was trying to create one globabl counter loop for the encoder
   // but couldnt figure out a way to make it work without a large delay between decreasing the bar width from its max value if the user had taken the encoder to say a value of 80
   // the counter wouldnt change the bar width until it went below 50, hence the local specific approach below
 
-  // this may prove to be stupid and inefficient, but that is a problem for future me
+
+
+
+ //int yDispCoord =
+
+  
+// the plan is to have 1 more 2d array which holds all the display element draw pixel coords for
+// their respective UI elements, this way there doesnt have to be any dumb shit going on in the display loop
+
+// leaving this in a bad state rn but this has annoyed me too much so im done lol
+
+
+
+
+
+    // Draw the UI elements
+    for (int row = 0; row < numRows; ++row) {
+        for (int col = 0; col < numCols; ++col) {
+            // Check if this element is the currently focused one
+            if (row == currentY && col == currentX) {
+                
+                if(col = 1){
+
+                  display.drawRect(1,18, 44, 11, 1);
+
+
+                }
+
+
+            }
+
+            // Display the UI element at this position
+            
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
  long newPosition = myEnc.read();
 
@@ -72,13 +186,7 @@ void displayControlLoop(){
   // it may be a problem with the code however I doubt it. this works much better than the previous implementation
   // TO DO: test with higher quality encoders to see if the problem persists
 
-
-// go from top left to bottom right using rotary encoder and as the counter changes it should update the UI 
-//elements to be highlighted when scrolled to 
-
-// will need to add new UI elements in this loop or menu page start loop? not sure which yet
-
-//^^^^^^^^ new UI highlighting display elements should probably be written into the control loop, as it will be easier to read.
+  //New approach, using buttons to navigate menu now, encoder approach was kinda stupid tbh
 
 }
 

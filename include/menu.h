@@ -9,8 +9,9 @@ void displayMenuPage3();
 void displayMenuPage4();
 void displayMenuPage5();
 void displayMenuPage6();
-void displayControlLoopSetup();
+void displayControlSetup();
 void displayControlLoop();
+void buttonControl();
 
 #endif // MENU_H
 

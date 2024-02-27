@@ -42,7 +42,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);
 // end of button setup
 
-  displayControlLoopSetup();
+ 
 
 
 //serial connection start at 9600 baudrate
@@ -55,6 +55,8 @@ void loop()
   
   display.clearDisplay(); // clearing display at start of loop//
 
+  displayControlSetup();
+
   displayControlLoop();
 
   displayMenuPageStart();
@@ -62,7 +64,7 @@ void loop()
 
  
   
-  //displayMenuPage1();
+ //displayMenuPage1();
 
   
 
@@ -70,7 +72,7 @@ void loop()
 
   
 
-//  displayMenuPage3();
+ //  displayMenuPage3();
 
   
 
