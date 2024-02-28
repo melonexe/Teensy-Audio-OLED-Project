@@ -61,6 +61,8 @@ void loop()
 
   displayMenuPageStart();
 
+  display.display();
+
 
  
   

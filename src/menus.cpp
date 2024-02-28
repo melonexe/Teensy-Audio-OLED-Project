@@ -26,16 +26,30 @@ int barCounter = 0; // limited encoder counter to feed the bar width variable to
 const int numRows = 4;
 const int numCols = 3;
 
-int currentX = 1;  // Current X position
-int currentY = 1;  // Current Y position
+int currentCol = 0;  // Current X position
+int currentRow = 0;  // Current Y position
 
-// Define UI elements
-String uiElements[numRows][numCols] = {
-    {"Button1", "Button2", "Button3"},
-    {"Button4", "Button5", "Button6"},
-    {"Button7", "Button8", "Button9"},
-    {"Button10", "Button11", "Button12"}
+
+
+
+
+struct Pair {
+    int x; 
+    int y;
 };
+
+Pair drawLoc[numRows][numCols] = {
+    { {1, 18}, {3, 4}, {5, 6} },
+    { {1, 29}, {9, 10}, {11, 12} },
+    { {1, 40}, {9, 10}, {11, 12} },
+    { {1, 51}, {9, 10}, {11, 12} },
+    
+};
+
+
+
+int drawLocX = drawLoc[currentCol][currentRow].x ;
+int drawLocY = drawLoc[currentCol][currentRow].y ;
 
 
 void displayControlSetup(){
@@ -45,32 +59,59 @@ void displayControlSetup(){
   pinMode(button3, INPUT_PULLUP);
   pinMode(button4, INPUT_PULLUP);
 
-
-  
-
 }
 
 
 void buttonControl(){
 
+
+  if (digitalRead(button1) == HIGH){
+    currentCol--;
+
+    Serial.println("left button pressed!");
+  }
+
+   if (digitalRead(button2) == HIGH){
+    currentRow--;
+
+    Serial.println("UP button pressed!");
+  }
+
+   if (digitalRead(button3) == HIGH){
+    currentCol++;
+
+    Serial.println("Right button pressed!");
+  }
+
+   if (digitalRead(button4) == HIGH){
+    currentRow++;
+
+    Serial.println("Down button pressed!");
+  }
+
+
+
+
+
+
   if (digitalRead(button1) == HIGH){
 
-    currentX--;
+    currentCol--;
 
-    if (currentX < 1){
+    if (currentCol < 0){
 
-      currentX = 1;
+      currentCol = 0;
     }
 
   }
 
   if (digitalRead(button2) == HIGH){
 
-    currentY--;
+    currentRow--;
 
-    if (currentY < 1){
+    if (currentRow < 0){
 
-      currentY = 1;
+      currentRow = 0;
     }
 
   }
@@ -78,22 +119,22 @@ void buttonControl(){
 
   if (digitalRead(button3) == HIGH){
 
-    currentX++;
+    currentCol++;
 
-    if (currentX > 3){
+    if (currentCol > 2){
 
-      currentX = 3;
+      currentCol = 2;
     }
 
   }
 
   if (digitalRead(button4) == HIGH){
 
-    currentY++;
+    currentRow++;
 
-    if (currentY > 4){
+    if (currentRow > 3){
 
-      currentY = 4;
+      currentRow = 3;
     }
 
   }
@@ -122,26 +163,16 @@ void displayControlLoop(){
 
 
 
-    // Draw the UI elements
-    for (int row = 0; row < numRows; ++row) {
-        for (int col = 0; col < numCols; ++col) {
-            // Check if this element is the currently focused one
-            if (row == currentY && col == currentX) {
                 
-                if(col = 1){
+                
 
-                  display.drawRect(1,18, 44, 11, 1);
-
-
-                }
+                  display.drawRect(drawLocX,drawLocY, 44, 11, 1);
 
 
-            }
+                
 
-            // Display the UI element at this position
+
             
-        }
-    }
 
 
 
@@ -188,6 +219,8 @@ void displayControlLoop(){
 
   //New approach, using buttons to navigate menu now, encoder approach was kinda stupid tbh
 
+
+  
 }
 
 
@@ -297,303 +330,30 @@ void displayMenuPageStart() {
 }
 
 void displayMenuPage1() {
-    // Implementation for menu page 1
-    // ...
-
-
-    display.clearDisplay(); // clearing display at start of loop//
-
-
-
-//begin drawing screen outline//
-  display.drawFastVLine(0, 0, 64, WHITE);                               
-
-  display.drawFastVLine(127, 0, 64, WHITE);
-
-  display.drawFastHLine(0, 0, 127, WHITE);
-
-  display.drawFastHLine(0, 63, 127, WHITE);
-// finish drawing screen outline
-
-// Begin text segment //
-  static const char* text = "This is Menu Page 1!"; // set constant character
-  float textSize = 1;
-
-
-  display.setTextSize(textSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(5, 16);
-  display.print(text);
-//end text segment//
-
-// draw reactive bar //
-
-  int width = map(analogRead(A1), 0, 1023, 0, 117); // scales value from analog read pin to display area, needs testing for bounds etc
-
-
-  if (width < 0) {
-    width = 0;  // Set width of bar to 0 if it goes below 0
-  }
-
-
-  display.drawRect(5, 5, width, 5, WHITE); // draws rectangle outline in format ( X coord, Y coord, width, colour)
-  display.fillRect(5, 5, width, 5, WHITE); // fills the rectangle defined aboe my matching the paramters and using width variable
-
-  display.display(); // push data to display
-
-  delay(1); // wait 1 ms before returning to start
-
+   
 
 }
 
 void displayMenuPage2() {
-    // Implementation for menu page 2
-    // ...
-
-    // Implementation for menu page 1
-    // ...
-
-
-    display.clearDisplay(); // clearing display at start of loop//
-
-
-
-//begin drawing screen outline//
-  display.drawFastVLine(0, 0, 64, WHITE);                               
-
-  display.drawFastVLine(127, 0, 64, WHITE);
-
-  display.drawFastHLine(0, 0, 127, WHITE);
-
-  display.drawFastHLine(0, 63, 127, WHITE);
-// finish drawing screen outline
-
-// Begin text segment //
-  static const char* text = "This is Menu Page 2!"; // set constant character
-  float textSize = 1;
-
-
-  display.setTextSize(textSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(5, 16);
-  display.print(text);
-//end text segment//
-
-// draw reactive bar //
-
-  int width = map(analogRead(A1), 0, 1023, 0, 117); // scales value from analog read pin to display area, needs testing for bounds etc
-
-
-  if (width < 0) {
-    width = 0;  // Set width of bar to 0 if it goes below 0
-  }
-
-
-  display.drawRect(5, 5, width, 5, WHITE); // draws rectangle outline in format ( X coord, Y coord, width, colour)
-  display.fillRect(5, 5, width, 5, WHITE); // fills the rectangle defined aboe my matching the paramters and using width variable
-
-  display.display(); // push data to display
-
-  delay(1); // wait 1 ms before returning to start
+ 
 }
 
 void displayMenuPage3() {
-    // Implementation for menu page 3
-    // ...
-
-    // Implementation for menu page 1
-    // ...
-
-
-    display.clearDisplay(); // clearing display at start of loop//
-
-
-
-//begin drawing screen outline//
-  display.drawFastVLine(0, 0, 64, WHITE);                               
-
-  display.drawFastVLine(127, 0, 64, WHITE);
-
-  display.drawFastHLine(0, 0, 127, WHITE);
-
-  display.drawFastHLine(0, 63, 127, WHITE);
-// finish drawing screen outline
-
-// Begin text segment //
-  static const char* text = "This is Menu Page 3!"; // set constant character
-  float textSize = 1;
-
-
-  display.setTextSize(textSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(5, 16);
-  display.print(text);
-//end text segment//
-
-// draw reactive bar //
-
-  int width = map(analogRead(A1), 0, 1023, 0, 117); // scales value from analog read pin to display area, needs testing for bounds etc
-
-
-  if (width < 0) {
-    width = 0;  // Set width of bar to 0 if it goes below 0
-  }
-
-
-  display.drawRect(5, 5, width, 5, WHITE); // draws rectangle outline in format ( X coord, Y coord, width, colour)
-  display.fillRect(5, 5, width, 5, WHITE); // fills the rectangle defined aboe my matching the paramters and using width variable
-
-  display.display(); // push data to display
-
-  delay(1); // wait 1 ms before returning to start
+ 
 }
 
 void displayMenuPage4() {
-    // Implementation for menu page 1
-    // ...
-
-
-    display.clearDisplay(); // clearing display at start of loop//
-
-
-
-//begin drawing screen outline//
-  display.drawFastVLine(0, 0, 64, WHITE);                               
-
-  display.drawFastVLine(127, 0, 64, WHITE);
-
-  display.drawFastHLine(0, 0, 127, WHITE);
-
-  display.drawFastHLine(0, 63, 127, WHITE);
-// finish drawing screen outline
-
-// Begin text segment //
-  static const char* text = "This is Menu Page 1!"; // set constant character
-  float textSize = 1;
-
-
-  display.setTextSize(textSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(5, 16);
-  display.print(text);
-//end text segment//
-
-// draw reactive bar //
-
-  int width = map(analogRead(A1), 0, 1023, 0, 117); // scales value from analog read pin to display area, needs testing for bounds etc
-
-
-  if (width < 0) {
-    width = 0;  // Set width of bar to 0 if it goes below 0
-  }
-
-
-  display.drawRect(5, 5, width, 5, WHITE); // draws rectangle outline in format ( X coord, Y coord, width, colour)
-  display.fillRect(5, 5, width, 5, WHITE); // fills the rectangle defined aboe my matching the paramters and using width variable
-
-  display.display(); // push data to display
-
-  delay(1); // wait 1 ms before returning to start
-
+   
 
 }
 
 void displayMenuPage5() {
-    // Implementation for menu page 1
-    // ...
-
-
-    display.clearDisplay(); // clearing display at start of loop//
-
-
-
-//begin drawing screen outline//
-  display.drawFastVLine(0, 0, 64, WHITE);                               
-
-  display.drawFastVLine(127, 0, 64, WHITE);
-
-  display.drawFastHLine(0, 0, 127, WHITE);
-
-  display.drawFastHLine(0, 63, 127, WHITE);
-// finish drawing screen outline
-
-// Begin text segment //
-  static const char* text = "This is Menu Page 1!"; // set constant character
-  float textSize = 1;
-
-
-  display.setTextSize(textSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(5, 16);
-  display.print(text);
-//end text segment//
-
-// draw reactive bar //
-
-  int width = map(analogRead(A1), 0, 1023, 0, 117); // scales value from analog read pin to display area, needs testing for bounds etc
-
-
-  if (width < 0) {
-    width = 0;  // Set width of bar to 0 if it goes below 0
-  }
-
-
-  display.drawRect(5, 5, width, 5, WHITE); // draws rectangle outline in format ( X coord, Y coord, width, colour)
-  display.fillRect(5, 5, width, 5, WHITE); // fills the rectangle defined aboe my matching the paramters and using width variable
-
-  display.display(); // push data to display
-
-  delay(1); // wait 1 ms before returning to start
-
+   
 
 }
 
 void displayMenuPage6() {
-    // Implementation for menu page 1
-    // ...
-
-
-    display.clearDisplay(); // clearing display at start of loop//
-
-
-
-//begin drawing screen outline//
-  display.drawFastVLine(0, 0, 64, WHITE);                               
-
-  display.drawFastVLine(127, 0, 64, WHITE);
-
-  display.drawFastHLine(0, 0, 127, WHITE);
-
-  display.drawFastHLine(0, 63, 127, WHITE);
-// finish drawing screen outline
-
-// Begin text segment //
-  static const char* text = "This is Menu Page 1!"; // set constant character
-  float textSize = 1;
-
-
-  display.setTextSize(textSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(5, 16);
-  display.print(text);
-//end text segment//
-
-// draw reactive bar //
-
-  int width = map(analogRead(A1), 0, 1023, 0, 117); // scales value from analog read pin to display area, needs testing for bounds etc
-
-
-  if (width < 0) {
-    width = 0;  // Set width of bar to 0 if it goes below 0
-  }
-
-
-  display.drawRect(5, 5, width, 5, WHITE); // draws rectangle outline in format ( X coord, Y coord, width, colour)
-  display.fillRect(5, 5, width, 5, WHITE); // fills the rectangle defined aboe my matching the paramters and using width variable
-
-  display.display(); // push data to display
-
-  delay(1); // wait 1 ms before returning to start
+    
 
 
 }
