@@ -61,6 +61,17 @@ void displayControlSetup(){
 }
 
 
+// TO DO!!!!
+
+// currentCOL and currentRow need if statements to keep params within 4x3 grid values, if these 
+//are unlimited as I suspect they are then this may be causing the weird control behaviour.
+// may not be the case but I think it is
+
+//disregard above, forgot I already added checks
+// think its time to add some serial de bugging code to the end of the button control function.
+
+
+
 void buttonControl(){
 
 
@@ -143,7 +154,7 @@ void buttonControl(){
 
   }
 
-delay(5);
+delay(5);// pointless delay, not enough time to de bounce buttons adding further delay will just slow shit down 
 
 }
 
