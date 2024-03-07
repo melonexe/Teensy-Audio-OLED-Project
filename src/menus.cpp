@@ -48,8 +48,7 @@ Pair drawLoc[numRows][numCols] = {
 
 
 
-int drawLocX = drawLoc[currentCol][currentRow].x ;
-int drawLocY = drawLoc[currentCol][currentRow].y ;
+
 
 
 void displayControlSetup(){
@@ -237,6 +236,9 @@ void displayMenuPageStart() {
   int BarWidth2 = 25;
   int BarWidth3 = 25;
   int BarWidth4 = 25;
+
+  int drawLocX = drawLoc[currentCol][currentRow].x ;
+  int drawLocY = drawLoc[currentCol][currentRow].y ;
 
 //begin drawing screen outline//
   display.drawFastVLine(0, 0, 64, WHITE);                               
