@@ -144,14 +144,16 @@ void buttonControl(){
     }
   }
 
-
-
+  Serial.println("current col");
+  Serial.println(currentCol);
+  Serial.println("Current Row");
+  Serial.println(currentRow);
 
 
 
  
 
-delay(5);// pointless delay, not enough time to de bounce buttons adding further delay will just slow shit down 
+delay(200);// pointless delay, not enough time to de bounce buttons adding further delay will just slow shit down 
 
 }
 
