@@ -69,22 +69,27 @@ void buttonControl(){
     currentCol--;
 
     Serial.println("left button pressed!");
+    
   }
 
    if (digitalRead(button2) == HIGH){
     currentRow--;
 
+
     Serial.println("UP button pressed!");
+    
   }
 
    if (digitalRead(button3) == HIGH){
     currentCol++;
+    
 
     Serial.println("Right button pressed!");
   }
 
    if (digitalRead(button4) == HIGH){
     currentRow++;
+    
 
     Serial.println("Down button pressed!");
   }
@@ -139,25 +144,13 @@ void buttonControl(){
 
   }
 
+delay(5);
 
 }
 
 void displayControlLoop(){
  
-  //this is a local implementation for bar values as the counter cannot go above 50, I was trying to create one globabl counter loop for the encoder
-  // but couldnt figure out a way to make it work without a large delay between decreasing the bar width from its max value if the user had taken the encoder to say a value of 80
-  // the counter wouldnt change the bar width until it went below 50, hence the local specific approach below
 
-
-
-
- //int yDispCoord =
-
-  
-// the plan is to have 1 more 2d array which holds all the display element draw pixel coords for
-// their respective UI elements, this way there doesnt have to be any dumb shit going on in the display loop
-
-// leaving this in a bad state rn but this has annoyed me too much so im done lol
 
 
 
@@ -166,7 +159,7 @@ void displayControlLoop(){
                 
                 
 
-                  display.drawRect(drawLocX,drawLocY, 44, 11, 1);
+                  
 
 
                 
@@ -194,6 +187,11 @@ void displayControlLoop(){
     counter++;
     if (counter > 50){
       counter = 50;
+    }
+
+    if (counter < 0){
+
+      counter = 0;
     }
     Serial.println("Counter: " + String(counter));
   } else if (newPosition < oldPosition) {
@@ -321,6 +319,22 @@ void displayMenuPageStart() {
 
 
   display.drawBitmap(2, 2, image_Voltage_bits, 16, 16, 1);
+
+
+  // UI Focus display code
+
+
+
+  display.drawRect(drawLocX,drawLocY, 44, 11, 1);
+
+
+
+
+
+
+
+
+
 
   display.display(); // push data to display
 

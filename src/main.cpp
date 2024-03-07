@@ -59,9 +59,11 @@ void loop()
 
   displayControlLoop();
 
+  buttonControl();
+
   displayMenuPageStart();
 
-  display.display();
+ // display.display();
 
 
  
