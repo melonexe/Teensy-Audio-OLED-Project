@@ -79,6 +79,16 @@ void buttonControl(){
     currentCol--;
 
     Serial.println("left button pressed!");
+
+        if (currentCol < 0){
+
+      currentCol = 0;
+    }
+
+        if (currentCol > 2){
+
+      currentCol = 2;
+    }
     
   }
 
@@ -87,7 +97,16 @@ void buttonControl(){
 
 
     Serial.println("UP button pressed!");
+
+        if (currentRow < 0){
+
+      currentRow = 0;
+    }
     
+        if (currentRow > 3){
+
+      currentRow = 3;
+    }
   }
 
    if (digitalRead(button3) == HIGH){
@@ -95,6 +114,17 @@ void buttonControl(){
     
 
     Serial.println("Right button pressed!");
+
+    
+        if (currentCol < 0){
+
+      currentCol = 0;
+    }
+
+        if (currentCol > 2){
+
+      currentCol = 2;
+    }
   }
 
    if (digitalRead(button4) == HIGH){
@@ -102,57 +132,24 @@ void buttonControl(){
     
 
     Serial.println("Down button pressed!");
-  }
 
-
-
-
-
-
-  if (digitalRead(button1) == HIGH){
-
-    currentCol--;
-
-    if (currentCol < 0){
-
-      currentCol = 0;
-    }
-
-  }
-
-  if (digitalRead(button2) == HIGH){
-
-    currentRow--;
-
-    if (currentRow < 0){
+            if (currentRow < 0){
 
       currentRow = 0;
     }
-
-  }
-
-
-  if (digitalRead(button3) == HIGH){
-
-    currentCol++;
-
-    if (currentCol > 2){
-
-      currentCol = 2;
-    }
-
-  }
-
-  if (digitalRead(button4) == HIGH){
-
-    currentRow++;
-
-    if (currentRow > 3){
+    
+        if (currentRow > 3){
 
       currentRow = 3;
     }
-
   }
+
+
+
+
+
+
+ 
 
 delay(5);// pointless delay, not enough time to de bounce buttons adding further delay will just slow shit down 
 
