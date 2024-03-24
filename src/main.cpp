@@ -64,15 +64,15 @@ setupFaust();
 void loop() 
   {
   
-  display.clearDisplay(); // clearing display at start of loop//
+ // display.clearDisplay(); // clearing display at start of loop//
 
-  displayControlSetup();
+  //displayControlSetup();
 
-  displayControlLoop();
+  //displayControlLoop();
 
-  buttonControl();
+  //buttonControl();
 
-  displayMenuPageStart();
+  //displayMenuPageStart();
 
   loopFaust();
 
