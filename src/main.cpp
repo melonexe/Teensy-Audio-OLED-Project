@@ -93,5 +93,5 @@ void loop()
 
   
 
-  delay(1);// delays for 1ms before going to loop start again
+  
   }
