@@ -7,6 +7,8 @@
 //local source dependencies
 #include <menu.h>
 #include <Audio.h>
+#include <sawtooth.h>
+#include <FaustTest.h>
 
 //#include "menus.cpp"
 
@@ -32,6 +34,8 @@ void setup() {
   display.clearDisplay(); // clear display in init section
   display.display();    //begin display function
 
+
+
 // end of display setup
 
 // button digital pin setup
@@ -48,6 +52,13 @@ void setup() {
 //serial connection start at 9600 baudrate
   Serial.begin(9600);
 
+
+
+
+//Faust and audio setup shit
+setupFaust();
+
+
 }
 
 void loop() 
@@ -62,6 +73,8 @@ void loop()
   buttonControl();
 
   displayMenuPageStart();
+
+  loopFaust();
 
  // display.display();
 

@@ -1,10 +1,10 @@
-#ifndef AUDIOPRCS_H
-#define AUDIOPRCS_H
+#ifndef FAUSTTEST_H
+#define AFAUSTTEST_H
 
 // Function declarations or class declarations go here
 
-void Audiosetup();
+void setupFaust();
+void loopFaust();
 
-void AudioLoop();
 
 #endif // AUDIOPRCS_H
