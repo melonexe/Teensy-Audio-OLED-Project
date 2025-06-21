@@ -12,7 +12,7 @@
 
 // put function declarations here:
 
-Adafruit_SSD1306 display(128, 64, &Wire, -1, 1000000);  // 1MHz I2C clock
+Adafruit_SSD1306 display(128, 64, &Wire1, -1, 1000000);  // 1MHz I2C clock
 
 // button pin defs
 

@@ -1,7 +1,6 @@
 #include "audioPrcs.h"
 
-
-
+/*
 #include <Audio.h>
 #include <Wire.h>
 #include <SPI.h>
@@ -114,8 +113,6 @@ AudioConnection          patchCord60(MixerR, rms2);
 AudioControlSGTL5000     sgtl5000_1;     //xy=121,500
 // GUItool: end automatically generated code
 
-
-
 void Audiosetup() {
   // put your setup code here, to run once:
 
@@ -124,25 +121,11 @@ void Audiosetup() {
   sgtl5000_1.enable();
   sgtl5000_1.volume(0.7);
 
-
   //set up amp and mixer values etc etc refer to system diagram
 
   AudioMemory(512);// arbritary value at the moment need to look into this
 }
 
-
-
-
 void AudioLoop(){
-
-
-
-
-
-
-
-
-
-
-  
 }
+*/
